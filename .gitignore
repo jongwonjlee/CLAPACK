@@ -1,0 +1,19 @@
+*.a
+*.o
+*.out
+
+# F2CLIBS
+F2CLIBS/libf2c/*.h
+!F2CLIBS/libf2c/f2c.h
+
+# BLAS
+BLAS/xblat*
+
+# INSTALL
+INSTALL/test*
+
+# TESTING
+TESTING/x*tsts
+
+# temporary
+levmar/
