@@ -31,8 +31,8 @@ SYSROOT = ${VLE_EWL_DIR}
 SPECS = ${VLE_EWL_DIR}/lib/ewl_c9x_hosted.specs
 
 # compilers and flags
-CC = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-gcc -DNO_BLAS_WRAP
-AR = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-ar -DNO_BLAS_WRAP
+CC = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-gcc
+AR = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-ar
 CFLAGS = -std=c99 -O3 -c -fmessage-length=0 -fstrict-volatile-bitfields -ffunction-sections -fdata-sections -mcpu=e200z4 -specs=${SPECS} -mbig -mvle -mregnames -mhard-float --sysroot=${SYSROOT} -I${SYSROOT}/EWL_C/include -I${SYSROOT}/EWL_C/include/pa -I${SYSROOT}/EWL_C/include/extras -I$(TOPDIR)/INCLUDE
 
 # linker flags
@@ -52,7 +52,7 @@ LD_FLAGS += --gc-sections
 # LOADOPTS  =
 # NOOPT     = -O0 -I$(TOPDIR)/INCLUDE
 DRVCFLAGS = $(CFLAGS)
-F2CCFLAGS = $(CFLAGS)
+F2CCFLAGS = $(CFLAGS) -DNO_ONEXIT
 #######################################################################
 
 #

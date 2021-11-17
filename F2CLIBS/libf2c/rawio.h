@@ -21,7 +21,7 @@ extern int read(int,void*,size_t), write(int,void*,size_t);
 extern int unlink(const char*);
 #ifndef _POSIX_SOURCE
 #ifndef NON_UNIX_STDIO
-extern FILE *fdopen(int, const char*);
+// extern FILE *fdopen(int, const char*);
 #endif
 #endif
 #endif /*KR_HEADERS*/
