@@ -8,9 +8,8 @@ PROJECT(LEVMAR)
 ########################## JONGWON EDITED HERE ##########################
 SET(HAVE_LAPACK 1 CACHE BOOL "Do we have LAPACK/BLAS?")
 # the directory where the lapack/blas/f2c libraries reside
-SET(LAPACKBLAS_DIR "${CMAKE_SOURCE_DIR}/../" CACHE PATH "Path to lapack/blas libraries")
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../INCLUDE)
-MESSAGE(STATUS "${CMAKE_SOURCE_DIR}/../INCLUDE")
+# SET(LAPACKBLAS_DIR "${CMAKE_SOURCE_DIR}/../" CACHE PATH "Path to lapack/blas libraries")
+# INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../INCLUDE)
 SET(NEED_F2C 0 CACHE BOOL "Do we need either f2c or F77/I77?")
 SET(LM_DBL_PREC 1 CACHE BOOL "Build double precision routines?")
 SET(LM_SNGL_PREC 0 CACHE BOOL "Build single precision routines?")
