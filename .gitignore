@@ -1,6 +1,9 @@
 *.a
 *.o
 *.out
+*.so
+
+build/
 
 # F2CLIBS
 F2CLIBS/libf2c/*.h
@@ -16,4 +19,4 @@ INSTALL/test*
 TESTING/x*tsts
 
 # temporary
-levmar/
+# levmar/
