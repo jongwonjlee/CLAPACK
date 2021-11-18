@@ -58,7 +58,7 @@ RANLIB   = ranlib
 #  The target's machine-specific, optimized BLAS library should be
 #  used whenever possible.
 #
-BLASLIB      = ../../libblas$(PLAT).a
+BLASLIB      = ../../libcblas$(PLAT).a
 #
 #  Location of the extended-precision BLAS (XBLAS) Fortran library
 #  used for building and testing extended-precision routines.  The
@@ -71,9 +71,8 @@ XBLASLIB     =
 #
 #  Names of generated libraries.
 #
-LAPACKLIB    = liblapack$(PLAT).a
+LAPACKLIB    = libclapack$(PLAT).a
 F2CLIB       = ../../F2CLIBS/libf2c.a
 TMGLIB       = libtmglib$(PLAT).a
 EIGSRCLIB    = libeigsrc$(PLAT).a
 LINSRCLIB    = liblinsrc$(PLAT).a
-F2CLIB		 = ../../F2CLIBS/libf2c.a

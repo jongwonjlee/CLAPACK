@@ -12,7 +12,7 @@
 
 #include "f2c.h"
 #include "blaswrap.h"
-#include "stdio.h"
+#include <stdio.h>
 
 /* Table of constant values */
 
@@ -55,7 +55,7 @@ static integer c__1 = 1;
 /*     .. */
 /*     .. Executable Statements .. */
 
-    printf("** On entry to %6s, parameter number %2i had an illegal value\n",
+    printf("** On entry to %6s, parameter number %2li had an illegal value\n",
 		srname, *info);
 
 

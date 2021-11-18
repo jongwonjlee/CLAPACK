@@ -6,11 +6,7 @@
 
 #define SIZE 4
 
-void MAIN_(){}
-void MAIN__(){}
-void _MAIN_(){}
-
-main( )
+int main()
 {
      char JOBU;
      char JOBVT;
@@ -51,10 +47,10 @@ main( )
     dgesvd_( &JOBU, &JOBVT, &M, &N, a, &LDA, s, uu, 
           &LDU, vt, &LDVT, wk, &LWORK, &INFO);
           
-    printf("\n INFO=%d", INFO );          
+    printf("INFO=%ld \n", INFO );          
 
     for ( i= 0; i< SIZE; i++ ) {
-        printf("\n s[ %d ] = %f", i, s[ i ] );
+        printf("s[ %d ] = %f \n", i, s[ i ] );
     }
 
     return 0;

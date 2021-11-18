@@ -18,5 +18,12 @@ make lapacklib
 # Build CLAPACK testing libraries
 make lapack_testing
 
+# copy f2clib to root directory
+cp F2CLIBS/libf2c.a .
+
+# [optional] build clapack tutorial code
+# gcc -o clapack_tutorial clapack_tutorial.c -IINCLUDE -lclapack -lcblas -lf2c -lm -L.
+# ./clapack_tutorial
+
 # Clean all
 # make cleanall
