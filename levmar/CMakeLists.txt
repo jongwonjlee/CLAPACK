@@ -7,10 +7,23 @@ PROJECT(LEVMAR)
 
 ########################## JONGWON EDITED HERE ##########################
 SET(HAVE_LAPACK 1 CACHE BOOL "Do we have LAPACK/BLAS?")
+SET(USE_CLAPACK 0 CACHE BOOL "Do we use CLAPACK/CBLAS?")
+
 # the directory where the lapack/blas/f2c libraries reside
-# SET(LAPACKBLAS_DIR "${CMAKE_SOURCE_DIR}/../" CACHE PATH "Path to lapack/blas libraries")
-# INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../INCLUDE)
-SET(NEED_F2C 0 CACHE BOOL "Do we need either f2c or F77/I77?")
+IF(USE_CLAPACK)
+  SET(LAPACKBLAS_DIR "${CMAKE_SOURCE_DIR}/../" CACHE PATH "Path to lapack/blas libraries")
+  SET(LAPACKBLAS_LIB_NAMES "clapack;cblas;m" CACHE STRING "The name of the lapack & blas libraries")
+  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../INCLUDE)
+  MESSAGE("INCLUDE DIRECTORY AT ${CMAKE_SOURCE_DIR}/../INCLUDE")
+  SET(NEED_F2C 1 CACHE BOOL "Do we need either f2c or F77/I77?")
+ELSE(USE_CLAPACK)
+  SET(LAPACKBLAS_DIR "/usr/lib/" CACHE PATH "Path to lapack/blas libraries")
+  SET(LAPACKBLAS_LIB_NAMES "lapack;blas;m" CACHE STRING "The name of the lapack & blas libraries")
+  SET(NEED_F2C 0 CACHE BOOL "Do we need either f2c or F77/I77?")
+ENDIF(USE_CLAPACK)
+
+#SET(LAPACKBLAS_LIB_NAMES "mkl_solver_sequential;mkl_intel_c;mkl_sequential;mkl_core" CACHE STRING "The name of the lapack library") # MKL
+
 SET(LM_DBL_PREC 1 CACHE BOOL "Build double precision routines?")
 SET(LM_SNGL_PREC 0 CACHE BOOL "Build single precision routines?")
 ########################## JONGWON EDITED HERE ##########################
@@ -22,9 +35,6 @@ ENDIF(HAVE_PLASMA)
 SET(LINSOLVERS_RETAIN_MEMORY 1 CACHE BOOL "Should linear solvers retain working memory between calls? (non-reentrant!)")
 OPTION(BUILD_DEMO "Build demo program?" TRUE)
 
-# actual names for the lapack/blas/f2c libraries
-SET(LAPACKBLAS_LIB_NAMES "lapack;blas;m" CACHE STRING "The name of the lapack & blas libraries")
-#SET(LAPACKBLAS_LIB_NAMES "mkl_solver_sequential;mkl_intel_c;mkl_sequential;mkl_core" CACHE STRING "The name of the lapack library") # MKL
 IF(NEED_F2C)
   SET(F2C_LIB_NAME f2c CACHE STRING "The name of the f2c or F77/I77 library")
   # f2c is sometimes equivalent to libF77 & libI77
@@ -65,10 +75,21 @@ IF(HAVE_PLASMA)
 ENDIF(HAVE_PLASMA)
 
 # levmar library source files
-ADD_LIBRARY(levmar STATIC
-  lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
-  levmar.h misc.h compiler.h
-)
+IF(USE_CLAPACK)
+  MESSAGE("GENERATE LEVMAR WITH CLAPACK ...")
+  ADD_LIBRARY(levmar STATIC
+    lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
+    levmar.h misc.h compiler.h
+    ${CMAKE_SOURCE_DIR}/../INCLUDE/clapack.h
+    ${CMAKE_SOURCE_DIR}/../INCLUDE/f2c.h
+  )
+ELSE(USE_CLAPACK)
+  MESSAGE("GENERATE LEVMAR WITH NORMAL LAPACK ...")
+  ADD_LIBRARY(levmar STATIC
+    lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
+    levmar.h misc.h compiler.h
+  )
+ENDIF(USE_CLAPACK)
 
 # demo program
 IF(BUILD_DEMO)
