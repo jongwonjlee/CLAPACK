@@ -20,3 +20,5 @@ TESTING/x*tsts
 
 # temporary
 # levmar/
+gemm_tutorial*
+.vscode/

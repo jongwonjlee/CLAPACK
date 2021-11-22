@@ -14,7 +14,6 @@ IF(USE_CLAPACK)
   SET(LAPACKBLAS_DIR "${CMAKE_SOURCE_DIR}/../" CACHE PATH "Path to lapack/blas libraries")
   SET(LAPACKBLAS_LIB_NAMES "clapack;cblas;m" CACHE STRING "The name of the lapack & blas libraries")
   INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../INCLUDE)
-  MESSAGE("INCLUDE DIRECTORY AT ${CMAKE_SOURCE_DIR}/../INCLUDE")
   SET(NEED_F2C 1 CACHE BOOL "Do we need either f2c or F77/I77?")
 ELSE(USE_CLAPACK)
   SET(LAPACKBLAS_DIR "/usr/lib/" CACHE PATH "Path to lapack/blas libraries")
@@ -62,32 +61,32 @@ ENDIF(0)
 
 ########################## NO CHANGES BEYOND THIS POINT ##########################
 
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/levmar.h.in ${CMAKE_CURRENT_SOURCE_DIR}/levmar.h)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/levmar.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/levmar.h)
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/)
 IF(HAVE_PLASMA)
  INCLUDE_DIRECTORIES(${PLASMA_DIR}/include ${PLASMA_DIR}/quark)
 ENDIF(HAVE_PLASMA)
 
 # PLASMA headers in Axb.c should be compiled as C++
 IF(HAVE_PLASMA)
-  SET_SOURCE_FILES_PROPERTIES(Axb.c PROPERTIES LANGUAGE CXX)
+  SET_SOURCE_FILES_PROPERTIES(src/Axb.c PROPERTIES LANGUAGE CXX)
 ENDIF(HAVE_PLASMA)
 
 # levmar library source files
 IF(USE_CLAPACK)
   MESSAGE("GENERATE LEVMAR WITH CLAPACK ...")
   ADD_LIBRARY(levmar STATIC
-    lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
-    levmar.h misc.h compiler.h
+    src/lm.c src/Axb.c src/misc.c src/lmlec.c src/lmbc.c src/lmblec.c src/lmbleic.c
+    src/levmar.h src/misc.h src/compiler.h
     ${CMAKE_SOURCE_DIR}/../INCLUDE/clapack.h
     ${CMAKE_SOURCE_DIR}/../INCLUDE/f2c.h
   )
 ELSE(USE_CLAPACK)
   MESSAGE("GENERATE LEVMAR WITH NORMAL LAPACK ...")
   ADD_LIBRARY(levmar STATIC
-    lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
-    levmar.h misc.h compiler.h
+    src/lm.c src/Axb.c src/misc.c src/lmlec.c src/lmbc.c src/lmblec.c src/lmbleic.c
+    src/levmar.h src/misc.h src/compiler.h
   )
 ENDIF(USE_CLAPACK)
 
@@ -114,11 +113,11 @@ IF(BUILD_DEMO)
     ENDIF(NEED_F2C)
   ENDIF(HAVE_LAPACK)
 
-  ADD_EXECUTABLE(lmdemo lmdemo.c levmar.h)
+  ADD_EXECUTABLE(lmdemo test/lmdemo.c src/levmar.h)
   TARGET_LINK_LIBRARIES(lmdemo ${LIBS})
   MESSAGE(STATUS "lmdemo will be linked against ${LIBS}")
 
-  ADD_EXECUTABLE(expfit expfit.c levmar.h)
+  ADD_EXECUTABLE(expfit test/expfit.c src/levmar.h)
   TARGET_LINK_LIBRARIES(expfit ${LIBS})
   MESSAGE(STATUS "expfit will be linked against ${LIBS}")
 
