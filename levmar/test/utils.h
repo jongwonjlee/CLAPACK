@@ -46,7 +46,7 @@ double gen_noise(double m, double s) {
 
 /* generate random unit vector with size of 3 */
 double* gen_random_uvec() {
-    static double v[3];
+    double* v = malloc(3*sizeof(double));
     for(int i=0; i<3; i++) v[i] = gen_noise(0.0, 1.0);
     
     double vnorm = get_norm(v, 3);
@@ -55,10 +55,10 @@ double* gen_random_uvec() {
     return v;
 }
 
-struct AngleAxis {
+typedef struct AngleAxis {
     double angle;
     double* axis;
-};
+} AngleAxis;
 
 /* convert angle axis representation (float, (np.array (3,))) into quaternion (np.array (4,)) */
 double* angleaxis2quat(struct AngleAxis angle_axis, int isDeg) {
@@ -73,7 +73,7 @@ double* angleaxis2quat(struct AngleAxis angle_axis, int isDeg) {
 
     if (isDeg) angle = angle * M_PI / 180;
         
-    static double q[4];
+    double* q = malloc(4*sizeof(double));
     q[0] = cos(angle/2);
     q[1] = axis[0] * sin(angle/2);
     q[2] = axis[1] * sin(angle/2);
