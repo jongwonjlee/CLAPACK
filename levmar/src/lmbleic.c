@@ -28,11 +28,6 @@
 #include <math.h>
 #include <float.h>
 
-#ifdef USE_CLAPACK
-  #include "f2c.h"
-  #include "clapack.h"
-#endif
-
 #include "levmar.h"
 #include "misc.h"
 
