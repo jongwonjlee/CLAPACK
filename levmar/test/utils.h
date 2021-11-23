@@ -86,7 +86,7 @@ double* angleaxis2quat(struct AngleAxis angle_axis, int isDeg) {
 struct AngleAxis quat2angleaxis(double* q, int isDeg) {
     double angle = 2 * acos(q[0]);
     double axis[3];
-    for (int i=0; i<3; i++) axis[i] = q[i+1] / sin(angle / 2);
+    for (int i=0; i<3; i++) axis[i] = q[i+1] / sin(angle/2);
     
     if(isDeg) angle = angle * 180 * M_1_PI;
 
@@ -113,4 +113,19 @@ double** quat2Rot(double* q) {
     R[2][1] = 2*(q[0]*q[1] + q[2]*q[3]);
     R[2][2] = q[0]*q[0] - q[1]*q[1] - q[2]*q[2] + q[3]*q[3];
     return R;
+}
+
+/* matrix multiplication ( A(3, 3) X B (3) = C (3) ) */
+double* matmul(double** A, double* b) {
+    double* c = malloc(3*sizeof(double));
+
+    for (int i=0; i < 3; ++i) {
+        double sum = 0;
+        for (int k = 0; k < 3; ++k) {
+            sum += A[i][k] * b[k];
+        }
+        c[i] = sum;
+    }
+    
+    return c;
 }
