@@ -125,9 +125,14 @@ IF(BUILD_DEMO)
   TARGET_LINK_LIBRARIES(quat_ops ${LIBS})
   MESSAGE(STATUS "quat_ops will be linked against ${LIBS}")
 
+  ADD_EXECUTABLE(quatfit test/quatfit.c src/levmar.h)
+  TARGET_LINK_LIBRARIES(quatfit ${LIBS})
+  MESSAGE(STATUS "quatfit will be linked against ${LIBS}")
+
 # make sure that the library is built before the demo
   ADD_DEPENDENCIES(lmdemo levmar)
   ADD_DEPENDENCIES(expfit levmar)
+  ADD_DEPENDENCIES(quatfit levmar)
 ENDIF(BUILD_DEMO)
 
 #SUBDIRS(matlab)
