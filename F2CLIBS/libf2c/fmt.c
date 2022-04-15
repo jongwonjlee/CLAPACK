@@ -55,7 +55,7 @@ op_gen(int a, int b, int c, int d)
 #endif
 {	struct syl *p= &f__syl[f__pc];
 	if(f__pc>=SYLMX)
-	{	fprintf(stderr,"format too complicated:\n");
+	{	printf("format too complicated:\n");
 		sig_die(f__fmtbuf, 1);
 	}
 	p->op=a;
@@ -429,7 +429,7 @@ integer do_fio(ftnint *number, char *ptr, ftnlen len)
 loop:	switch(type_f((p= &f__syl[f__pc])->op))
 	{
 	default:
-		fprintf(stderr,"unknown code in do_fio: %d\n%s\n",
+		printf("unknown code in do_fio: %d\n%s\n",
 			p->op,f__fmtbuf);
 		err(f__elist->cierr,100,"do_fio");
 	case NED:

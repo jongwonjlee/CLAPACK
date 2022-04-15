@@ -22,7 +22,7 @@ make lapack_testing
 cp F2CLIBS/libf2c.a .
 
 # [optional] build clapack tutorial code
-# gcc -o clapack_tutorial clapack_tutorial.c -IINCLUDE -lclapack -lcblas -lf2c -lm -L.
+# gcc -o clapack_tutorial clapack_tutorial.c -IINCLUDE -llapack -lblas -lf2c -lm -L.
 # ./clapack_tutorial
 
 # Clean all

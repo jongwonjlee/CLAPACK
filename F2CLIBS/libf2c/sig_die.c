@@ -23,7 +23,7 @@ void sig_die(const char *s, int kill)
 #endif
 {
 	/* print error message, then clear buffers */
-	fprintf(stderr, "%s\n", s);
+	printf("%s\n", s);
 
 	if(kill)
 		{

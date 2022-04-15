@@ -3,7 +3,8 @@ include $(TOPDIR)/make.inc
 F2CLIB       = $(TOPDIR)/F2CLIBS/libf2c.a
 
 .SUFFIXES : .o .c 
-all:  testlsame testslamch testdlamch testsecond testdsecnd testieee testversion 
+all:  slamch.o dlamch.o ilaver.o lsame.o tstiee.o
+# testlsame testslamch testdlamch testsecond testdsecnd testieee testversion 
 
 testlsame:  lsame.o lsametst.o
 	$(CC) $(LOADOPTS)   -o testlsame lsame.o lsametst.o $(F2CLIB) -lm
@@ -29,7 +30,7 @@ testversion: ilaver.o LAPACK_version.o
 clean:
 	rm -f *.o
 
-slamch.o: slamch.c ; $(CC) $(NOOPT) -c $< -o $@
-dlamch.o: dlamch.c ; $(CC) $(NOOPT) -c $< -o $@
+slamch.o: slamch.c ; $(CC) $(NOOPT) -c $< -o $@ $(F2CLIB) -lm
+dlamch.o: dlamch.c ; $(CC) $(NOOPT) -c $< -o $@ $(F2CLIB) -lm
 
 .c.o: ; $(CC) $(CFLAGS) -c $< -o $@

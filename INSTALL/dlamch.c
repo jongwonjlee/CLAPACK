@@ -394,7 +394,7 @@ L30:
 
     /* Builtin functions */
     double pow_di(doublereal *, integer *);
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
+    // integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     doublereal a, b, c__;
@@ -638,12 +638,14 @@ L10:
 	first = FALSE_;
 /* ** */
 /* Comment out this if block if EMIN is ok */
+	/*
 	if (iwarn) {
 	    first = TRUE_;
 	    s_wsfe(&io___58);
 	    do_fio(&c__1, (char *)&lemin, (ftnlen)sizeof(integer));
 	    e_wsfe();
 	}
+	*/
 /* ** */
 
 /*        Assume IEEE arithmetic if we found denormalised  numbers above, */

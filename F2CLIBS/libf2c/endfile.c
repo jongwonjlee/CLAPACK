@@ -43,8 +43,8 @@ integer f_end(alist *a)
 	if(b->ufd==NULL) {
 		char nbuf[10];
 		sprintf(nbuf,"fort.%ld",(long)a->aunit);
-		if (tf = FOPEN(nbuf, f__w_mode[0]))
-			fclose(tf);
+		// if (tf = FOPEN(nbuf, f__w_mode[0]))
+		// 	fclose(tf);
 		return(0);
 		}
 	b->uend=1;
@@ -101,20 +101,20 @@ t_runc(alist *a)
 	rc = 0;
 	fclose(b->ufd);
 	if (!loc) {
-		if (!(bf = FOPEN(b->ufnm, f__w_mode[b->ufmt])))
-			rc = 1;
+		// if (!(bf = FOPEN(b->ufnm, f__w_mode[b->ufmt])))
+		// 	rc = 1;
 		if (b->uwrt)
 			b->uwrt = 1;
 		goto done;
 		}
-	if (!(bf = FOPEN(b->ufnm, f__r_mode[0]))
-	 || !(tf = tmpfile())) {
+	// if (!(bf = FOPEN(b->ufnm, f__r_mode[0]))
+	//  || !(tf = tmpfile())) {
 #ifdef NON_UNIX_STDIO
- bad:
+// bad:
 #endif
-		rc = 1;
-		goto done;
-		}
+		// rc = 1;
+		// goto done;
+		// }
 	if (copy(bf, (long)loc, tf)) {
  bad1:
 		rc = 1;
@@ -130,8 +130,8 @@ t_runc(alist *a)
 #ifdef NON_UNIX_STDIO
 	if (b->ufmt) {
 		fclose(bf);
-		if (!(bf = FOPEN(b->ufnm, f__w_mode[3])))
-			goto bad;
+		// if (!(bf = FOPEN(b->ufnm, f__w_mode[3])))
+		// 	goto bad;
 		FSEEK(bf,(OFF_T)0,SEEK_END);
 		b->urw = 3;
 		}
@@ -146,10 +146,10 @@ done:
 #ifndef FTRUNCATE
 #define FTRUNCATE ftruncate
 #endif
-	rc = FTRUNCATE(fileno(b->ufd), loc);
+	// rc = FTRUNCATE(fileno(b->ufd), loc);
 	/* The following FSEEK is unnecessary on some systems, */
 	/* but should be harmless. */
-	FSEEK(b->ufd, (OFF_T)0, SEEK_END);
+	// FSEEK(b->ufd, (OFF_T)0, SEEK_END);
 #endif /* NO_TRUNCATE */
 	if (rc)
 		err(a->aerr,111,"endfile");

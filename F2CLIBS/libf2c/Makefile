@@ -19,9 +19,9 @@ include $(TOPDIR)/make.inc
 
 # compile, then strip unnecessary symbols
 .c.o:
-	$(CC) -c -DSkip_f2c_Undefs $(CFLAGS) $*.c
-	ld  -r -x -o $*.xxx $*.o
-	mv $*.xxx $*.o
+	$(CC) -c -DSkip_f2c_Undefs $(CFLAGS) -DNON_UNIX_STDIO -DUSE_CLOCK -DUSE_STRLEN $*.c
+#	ld  -r -x -o $*.xxx $*.o
+#	mv $*.xxx $*.o
 ## Under Solaris (and other systems that do not understand ld -x),
 ## omit -x in the ld line above.
 ## If your system does not have the ld command, comment out
@@ -110,8 +110,8 @@ sysdep1.h: sysdep1.h0
 # If your system lacks onexit() and you are not using an
 # ANSI C compiler, then you should uncomment the following
 # two lines (for compiling main.o):
-#main.o: main.c
-#	$(CC) -c -DNO_ONEXIT -DSkip_f2c_Undefs main.c
+main.o: main.c
+	$(CC) -c -DNO_ONEXIT -DSkip_f2c_Undefs main.c
 # On at least some Sun systems, it is more appropriate to
 # uncomment the following two lines:
 #main.o: main.c
@@ -184,8 +184,8 @@ xwsne.o:	fmt.h
 arith.h: arithchk.c
 	$(CC) $(CFLAGS) -DNO_FPINIT arithchk.c -lm ||\
 	 $(CC) -DNO_LONG_LONG $(CFLAGS) -DNO_FPINIT arithchk.c -lm
-	./a.out >arith.h
-	rm -f a.out arithchk.o
+#	./a.out >arith.h
+#	rm -f a.out arithchk.o
 
 check:
 	xsum Notice README abort_.c arithchk.c backspac.c c_abs.c c_cos.c \

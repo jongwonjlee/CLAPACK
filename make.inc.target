@@ -11,7 +11,8 @@ SHELL = /bin/sh
 #
 #  The machine (platform) identifier to append to the library names
 #
-PLAT = _MPC5748G
+PLAT = 
+# PLAT = _MPC5748G
 #  
 #  Modify the FORTRAN and OPTS definitions to refer to the
 #  compiler and desired compiler options for your machine.  NOOPT
@@ -33,15 +34,16 @@ SPECS = ${VLE_EWL_DIR}/lib/ewl_c9x_hosted.specs
 # compilers and flags
 CC = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-gcc
 AR = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-ar
-CFLAGS = -std=c99 -O3 -c -fmessage-length=0 -fstrict-volatile-bitfields -ffunction-sections -fdata-sections -mcpu=e200z4 -specs=${SPECS} -mbig -mvle -mregnames -mhard-float --sysroot=${SYSROOT} -I${SYSROOT}/EWL_C/include -I${SYSROOT}/EWL_C/include/pa -I${SYSROOT}/EWL_C/include/extras -I$(TOPDIR)/INCLUDE
+CFLAGS = -std=c99 -O3 -D_EWL_OS_DISK_FILE_SUPPORT -specs=${SPECS} --sysroot=${SYSROOT} -I${SYSROOT}/EWL_C/include -I${SYSROOT}/EWL_C/include/pa -I${SYSROOT}/EWL_C/include/extras -I$(TOPDIR)/INCLUDE
+# CFLAGS = -std=c99 -O3 -c -fmessage-length=0 -fstrict-volatile-bitfields -ffunction-sections -fdata-sections -mcpu=e200z4 -specs=${SPECS} -mbig -mvle -mregnames -mhard-float --sysroot=${SYSROOT} -I${SYSROOT}/EWL_C/include -I${SYSROOT}/EWL_C/include/pa -I${SYSROOT}/EWL_C/include/extras -I$(TOPDIR)/INCLUDE
 
 # linker flags
-SRC_LD += ${realpath Linker_Files/libs.ld}
-SRC_LD += ${realpath Linker_Files/57xx_flash.ld}
-LD_FLAGS += $(foreach d, $(SRC_LD),-T"$d")
+# SRC_LD += ${realpath Linker_Files/libs.ld}
+# SRC_LD += ${realpath Linker_Files/57xx_flash.ld}
+# LD_FLAGS += $(foreach d, $(SRC_LD),-T"$d")
 # LD_FLAGS += -Wl,-Map,"${PROJ_NAME}.map"
-LD_FLAGS += -Xlinker
-LD_FLAGS += --gc-sections
+# LD_FLAGS += -Xlinker
+# LD_FLAGS += --gc-sections
 
 # Original ones
 # CC        = gcc
@@ -50,7 +52,7 @@ LD_FLAGS += --gc-sections
 # CFLAGS    = -O3 -I$(TOPDIR)/INCLUDE
 # LOADER    = gcc
 # LOADOPTS  =
-# NOOPT     = -O0 -I$(TOPDIR)/INCLUDE
+NOOPT     = -O0 -I$(TOPDIR)/INCLUDE
 DRVCFLAGS = $(CFLAGS)
 F2CCFLAGS = $(CFLAGS) -DNO_ONEXIT
 #######################################################################
@@ -73,8 +75,8 @@ TIMER    = INT_CPU_TIME
 #  The archiver and the flag(s) to use when building archive (library)
 #  If you system has no ranlib, set RANLIB = echo.
 #
-ARCH     = ar
-ARCHFLAGS= cr
+ARCH     = ${VLE_TOOLCHAIN_DIR}/bin/${CROSS_PREFIX}-ar
+ARCHFLAGS= crs
 RANLIB   = ranlib
 #
 #  The location of BLAS library for linking the testing programs.
@@ -95,8 +97,7 @@ XBLASLIB     =
 #  Names of generated libraries.
 #
 LAPACKLIB    = liblapack$(PLAT).a
-F2CLIB       = ../../F2CLIBS/libf2c.a
+F2CLIB       = ../../F2CLIBS/libf2c$(PLAT).a
 TMGLIB       = libtmglib$(PLAT).a
 EIGSRCLIB    = libeigsrc$(PLAT).a
 LINSRCLIB    = liblinsrc$(PLAT).a
-F2CLIB		 = ../../F2CLIBS/libf2c.a

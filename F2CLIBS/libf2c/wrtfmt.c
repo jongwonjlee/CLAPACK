@@ -309,7 +309,7 @@ w_ed(struct syl *p, char *ptr, ftnlen len)
 	switch(p->op)
 	{
 	default:
-		fprintf(stderr,"w_ed, unexpected code: %d\n", p->op);
+		printf("w_ed, unexpected code: %d\n", p->op);
 		sig_die(f__fmtbuf, 1);
 	case I:	return(wrt_I((Uint *)ptr,p->p1,len, 10));
 	case IM:
@@ -352,7 +352,7 @@ w_ned(struct syl *p)
 {
 	switch(p->op)
 	{
-	default: fprintf(stderr,"w_ned, unexpected code: %d\n", p->op);
+	default: printf("w_ned, unexpected code: %d\n", p->op);
 		sig_die(f__fmtbuf, 1);
 	case SLASH:
 		return((*f__donewrec)());

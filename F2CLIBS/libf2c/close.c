@@ -56,7 +56,7 @@ integer f_clos(cllist *a)
 		Delete:
 			fclose(b->ufd);
 			if(b->ufnm) {
-				unlink(b->ufnm); /*SYSDEP*/
+				// unlink(b->ufnm); /*SYSDEP*/
 				free(b->ufnm);
 				}
 		}

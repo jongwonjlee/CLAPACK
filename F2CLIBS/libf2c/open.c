@@ -200,12 +200,12 @@ integer f_open(olist *a)
 	case 'o':
 	case 'O':
 #ifdef NON_POSIX_STDIO
-		if (!(tf = FOPEN(buf,"r")))
-			opnerr(a->oerr,errno,"open")
-		fclose(tf);
+		// if (!(tf = FOPEN(buf,"r")))
+		// 	opnerr(a->oerr,errno,"open")
+		// fclose(tf);
 #else
-		if (access(buf,0))
-			opnerr(a->oerr,errno,"open")
+		// if (access(buf,0))
+		// 	opnerr(a->oerr,errno,"open")
 #endif
 		break;
 	 case 's':
@@ -216,8 +216,8 @@ integer f_open(olist *a)
 		(void) mktemp(buf);
 		goto replace;
 #else
-		if (!(b->ufd = tmpfile()))
-			opnerr(a->oerr,errno,"open")
+		// if (!(b->ufd = tmpfile()))
+		// 	opnerr(a->oerr,errno,"open")
 		b->ufnm = 0;
 #ifndef NON_UNIX_STDIO
 		b->uinode = b->udev = -1;
@@ -229,13 +229,13 @@ integer f_open(olist *a)
 	case 'n':
 	case 'N':
 #ifdef NON_POSIX_STDIO
-		if ((tf = FOPEN(buf,"r")) || (tf = FOPEN(buf,"a"))) {
-			fclose(tf);
-			opnerr(a->oerr,128,"open")
-			}
+		// if ((tf = FOPEN(buf,"r")) || (tf = FOPEN(buf,"a"))) {
+		// 	fclose(tf);
+		// 	opnerr(a->oerr,128,"open")
+		// 	}
 #else
-		if (!access(buf,0))
-			opnerr(a->oerr,128,"open")
+		// if (!access(buf,0))
+		// 	opnerr(a->oerr,128,"open")
 #endif
 		/* no break */
 	case 'r':	/* Fortran 90 replace option */
@@ -243,8 +243,8 @@ integer f_open(olist *a)
 #ifdef NON_ANSI_STDIO
  replace:
 #endif
-		if (tf = FOPEN(buf,f__w_mode[0]))
-			fclose(tf);
+		// if (tf = FOPEN(buf,f__w_mode[0]))
+		 	fclose(tf);
 	}
 
 	b->ufnm=(char *) malloc((unsigned int)(strlen(buf)+1));
@@ -252,16 +252,16 @@ integer f_open(olist *a)
 	(void) strcpy(b->ufnm,buf);
 	if ((s = a->oacc) && b->url)
 		ufmt = 0;
-	if(!(tf = FOPEN(buf, f__w_mode[ufmt|2]))) {
-		if (tf = FOPEN(buf, f__r_mode[ufmt]))
-			b->urw = 1;
-		else if (tf = FOPEN(buf, f__w_mode[ufmt])) {
-			b->uwrt = 1;
-			b->urw = 2;
-			}
-		else
-			err(a->oerr, errno, "open");
-		}
+	// if(!(tf = FOPEN(buf, f__w_mode[ufmt|2]))) {
+	// 	if (tf = FOPEN(buf, f__r_mode[ufmt]))
+	// 		b->urw = 1;
+	// 	else if (tf = FOPEN(buf, f__w_mode[ufmt])) {
+	// 		b->uwrt = 1;
+	// 		b->urw = 2;
+	// 		}
+	// 	else
+	// 		err(a->oerr, errno, "open");
+	// 	}
 	b->useek = f__canseek(b->ufd = tf);
 #ifndef NON_UNIX_STDIO
 	if((b->uinode = f__inode(buf,&b->udev)) == -1)

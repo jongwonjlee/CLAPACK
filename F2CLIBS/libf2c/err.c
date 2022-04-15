@@ -100,12 +100,12 @@ f__canseek(FILE *f) /*SYSDEP*/
 #endif
 {
 #ifdef NON_UNIX_STDIO
-	return !isatty(fileno(f));
+	// return !isatty(fileno(f));
 #else
 	struct STAT_ST x;
 
-	if (FSTAT(fileno(f),&x) < 0)
-		return(0);
+	// if (FSTAT(fileno(f),&x) < 0)
+	// 	return(0);
 #ifdef S_IFMT
 	switch(x.st_mode & S_IFMT) {
 	case S_IFDIR:
@@ -115,8 +115,8 @@ f__canseek(FILE *f) /*SYSDEP*/
 		else
 			return(0);
 	case S_IFCHR:
-		if(isatty(fileno(f)))
-			return(0);
+		// if(isatty(fileno(f)))
+		// 	return(0);
 		return(1);
 #ifdef S_IFBLK
 	case S_IFBLK:
@@ -133,8 +133,8 @@ f__canseek(FILE *f) /*SYSDEP*/
 			return(0);
 		}
 	if (S_ISCHR(x.st_mode)) {
-		if(isatty(fileno(f)))
-			return(0);
+		// if(isatty(fileno(f)))
+		// 	return(0);
 		return(1);
 		}
 	if (S_ISBLK(x.st_mode))
@@ -154,24 +154,24 @@ f__fatal(n,s) char *s;
 f__fatal(int n, const char *s)
 #endif
 {
-	if(n<100 && n>=0) perror(s); /*SYSDEP*/
+	if(n<100 && n>=0) printf("%s\n", s); /*SYSDEP*/
 	else if(n >= (int)MAXERR || n < -1)
-	{	fprintf(stderr,"%s: illegal error number %d\n",s,n);
+	{	printf("%s: illegal error number %d\n",s,n);
 	}
-	else if(n == -1) fprintf(stderr,"%s: end of file\n",s);
+	else if(n == -1) printf("%s: end of file\n",s);
 	else
-		fprintf(stderr,"%s: %s\n",s,F_err[n-100]);
+		printf("%s: %s\n",s,F_err[n-100]);
 	if (f__curunit) {
-		fprintf(stderr,"apparent state: unit %d ",
+		printf("apparent state: unit %d ",
 			(int)(f__curunit-f__units));
-		fprintf(stderr, f__curunit->ufnm ? "named %s\n" : "(unnamed)\n",
+		printf(f__curunit->ufnm ? "named %s\n" : "(unnamed)\n",
 			f__curunit->ufnm);
 		}
 	else
-		fprintf(stderr,"apparent state: internal I/O\n");
+		printf("apparent state: internal I/O\n");
 	if (f__fmtbuf)
-		fprintf(stderr,"last format: %s\n",f__fmtbuf);
-	fprintf(stderr,"lately %s %s %s %s",f__reading?"reading":"writing",
+		printf("last format: %s\n",f__fmtbuf);
+	printf("lately %s %s %s %s",f__reading?"reading":"writing",
 		f__sequential?"sequential":"direct",f__formatted?"formatted":"unformatted",
 		f__external?"external":"internal");
 	sig_die(" IO", 1);
@@ -217,14 +217,14 @@ f__nowreading(unit *x)
 	ufmt = x->url ? 0 : x->ufmt;
 	loc = FTELL(x->ufd);
 	urw = 3;
-	if (!FREOPEN(x->ufnm, f__w_mode[ufmt|2], x->ufd)) {
-		urw = 1;
-		if(!FREOPEN(x->ufnm, f__r_mode[ufmt], x->ufd)) {
+//	if (!FREOPEN(x->ufnm, f__w_mode[ufmt|2], x->ufd)) {
+//		urw = 1;
+//		if(!FREOPEN(x->ufnm, f__r_mode[ufmt], x->ufd)) {
  cantread:
 			errno = 126;
 			return 1;
-			}
-		}
+//			}
+//		}
 	FSEEK(x->ufd,loc,SEEK_SET);
 	x->urw = urw;
  done:
@@ -252,21 +252,21 @@ f__nowwriting(unit *x)
 		goto cantwrite;
 	ufmt = x->url ? 0 : x->ufmt;
 	if (x->uwrt == 3) { /* just did write, rewind */
-		if (!(f__cf = x->ufd =
-				FREOPEN(x->ufnm,f__w_mode[ufmt],x->ufd)))
-			goto cantwrite;
+		// if (!(f__cf = x->ufd =
+		// 		FREOPEN(x->ufnm,f__w_mode[ufmt],x->ufd)))
+		// 	goto cantwrite;
 		x->urw = 2;
 		}
 	else {
 		loc=FTELL(x->ufd);
-		if (!(f__cf = x->ufd =
-			FREOPEN(x->ufnm, f__w_mode[ufmt | 2], x->ufd)))
-			{
-			x->ufd = NULL;
+//		if (!(f__cf = x->ufd =
+//			FREOPEN(x->ufnm, f__w_mode[ufmt | 2], x->ufd)))
+//			{
+//			x->ufd = NULL;
  cantwrite:
 			errno = 127;
 			return(1);
-			}
+//			}
 		x->urw = 3;
 		FSEEK(x->ufd,loc,SEEK_SET);
 		}

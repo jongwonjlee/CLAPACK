@@ -29,7 +29,8 @@ LOADER    = gcc
 LOADOPTS  =
 NOOPT     = -O0 -I$(TOPDIR)/INCLUDE
 DRVCFLAGS = $(CFLAGS)
-F2CCFLAGS = $(CFLAGS) -DNO_ONEXIT
+F2CCFLAGS = $(CFLAGS)
+# F2CCFLAGS = $(CFLAGS) -DNO_ONEXIT
 #######################################################################
 
 #
