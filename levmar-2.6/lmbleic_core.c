@@ -155,13 +155,13 @@ int LEVMAR_BLEIC_DER(
   LM_REAL locinfo[LM_INFO_SZ];
 
   if(!jacf){
-    fprintf(stderr, RCAT("No function specified for computing the Jacobian in ", LEVMAR_BLEIC_DER)
+    printf(RCAT("No function specified for computing the Jacobian in ", LEVMAR_BLEIC_DER)
       RCAT("().\nIf no such function is available, use ", LEVMAR_BLEIC_DIF) RCAT("() rather than ", LEVMAR_BLEIC_DER) "()\n");
     return LM_ERROR;
   }
 
   if(!C || !d){
-    fprintf(stderr, RCAT(LCAT(LEVMAR_BLEIC_DER, "(): missing inequality constraints, use "), LEVMAR_BLEC_DER) "() in this case!\n");
+    printf(RCAT(LCAT(LEVMAR_BLEIC_DER, "(): missing inequality constraints, use "), LEVMAR_BLEC_DER) "() in this case!\n");
     return LM_ERROR;
   }
 
@@ -170,14 +170,14 @@ int LEVMAR_BLEIC_DER(
   mm=m+k2;
 
   if(n<m-k1){
-    fprintf(stderr, LCAT(LEVMAR_BLEIC_DER, "(): cannot solve a problem with fewer measurements + equality constraints [%d + %d] than unknowns [%d]\n"), n, k1, m);
+    printf(LCAT(LEVMAR_BLEIC_DER, "(): cannot solve a problem with fewer measurements + equality constraints [%d + %d] than unknowns [%d]\n"), n, k1, m);
     return LM_ERROR;
   }
 
   k12=k1+k2;
   ptr=(LM_REAL *)malloc((3*mm + k12*mm + k12 + n*m + (covar? mm*mm : 0))*sizeof(LM_REAL));
   if(!ptr){
-    fprintf(stderr, LCAT(LEVMAR_BLEIC_DER, "(): memory allocation request failed\n"));
+    printf(LCAT(LEVMAR_BLEIC_DER, "(): memory allocation request failed\n"));
     return LM_ERROR;
   }
   pext=ptr;
@@ -319,7 +319,7 @@ int LEVMAR_BLEIC_DIF(
   LM_REAL locinfo[LM_INFO_SZ];
 
   if(!C || !d){
-    fprintf(stderr, RCAT(LCAT(LEVMAR_BLEIC_DIF, "(): missing inequality constraints, use "), LEVMAR_BLEC_DIF) "() in this case!\n");
+    printf(RCAT(LCAT(LEVMAR_BLEIC_DIF, "(): missing inequality constraints, use "), LEVMAR_BLEC_DIF) "() in this case!\n");
     return LM_ERROR;
   }
   if(!A || !b) k1=0; // sanity check
@@ -327,14 +327,14 @@ int LEVMAR_BLEIC_DIF(
   mm=m+k2;
 
   if(n<m-k1){
-    fprintf(stderr, LCAT(LEVMAR_BLEIC_DIF, "(): cannot solve a problem with fewer measurements + equality constraints [%d + %d] than unknowns [%d]\n"), n, k1, m);
+    printf(LCAT(LEVMAR_BLEIC_DIF, "(): cannot solve a problem with fewer measurements + equality constraints [%d + %d] than unknowns [%d]\n"), n, k1, m);
     return LM_ERROR;
   }
 
   k12=k1+k2;
   ptr=(LM_REAL *)malloc((3*mm + k12*mm + k12 + (covar? mm*mm : 0))*sizeof(LM_REAL));
   if(!ptr){
-    fprintf(stderr, LCAT(LEVMAR_BLEIC_DIF, "(): memory allocation request failed\n"));
+    printf(LCAT(LEVMAR_BLEIC_DIF, "(): memory allocation request failed\n"));
     return LM_ERROR;
   }
   pext=ptr;

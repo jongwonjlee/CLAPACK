@@ -181,12 +181,12 @@ double *mp;
   /* attempt to call the supplied func */
   i=mexCallMATLAB(1, lhs, dat->nrhs, dat->rhs, dat->fname);
   if(i){
-    fprintf(stderr, "levmar: error calling '%s'.\n", dat->fname);
+    printf("levmar: error calling '%s'.\n", dat->fname);
     ret=1;
   }
   else if(!mxIsDouble(lhs[0]) || mxIsComplex(lhs[0]) || !(mxGetM(lhs[0])==1 || mxGetN(lhs[0])==1) ||
       __MAX__(mxGetM(lhs[0]), mxGetN(lhs[0]))!=n){
-    fprintf(stderr, "levmar: '%s' should produce a real vector with %d elements (got %d).\n",
+    printf("levmar: '%s' should produce a real vector with %d elements (got %d).\n",
                     dat->fname, n, __MAX__(mxGetM(lhs[0]), mxGetN(lhs[0])));
     ret=1;
   }
@@ -197,16 +197,16 @@ double *mp;
     /* attempt to call the supplied jac  */
     i=mexCallMATLAB(1, lhs, dat->nrhs, dat->rhs, dat->jacname);
     if(i){
-      fprintf(stderr, "levmar: error calling '%s'.\n", dat->jacname);
+      printf("levmar: error calling '%s'.\n", dat->jacname);
       ret=1;
     }
     else if(!mxIsDouble(lhs[0]) || mxIsComplex(lhs[0]) || mxGetM(lhs[0])!=n || mxGetN(lhs[0])!=m){
-      fprintf(stderr, "levmar: '%s' should produce a real %dx%d matrix (got %dx%d).\n",
+      printf("levmar: '%s' should produce a real %dx%d matrix (got %dx%d).\n",
                       dat->jacname, n, m, mxGetM(lhs[0]), mxGetN(lhs[0]));
       ret=1;
     }
     else if(mxIsSparse(lhs[0])){
-      fprintf(stderr, "levmar: '%s' should produce a real dense matrix (got a sparse one).\n", dat->jacname);
+      printf("levmar: '%s' should produce a real dense matrix (got a sparse one).\n", dat->jacname);
       ret=1;
     }
     /* delete the matrix created by matlab */
@@ -292,7 +292,7 @@ double *lb=NULL, *ub=NULL, *dscl=NULL, *A=NULL, *b=NULL, *wghts=NULL, *C=NULL, *
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: %s analytic Jacobian\n", havejac? "with" : "no");
+  printf("LEVMAR: %s analytic Jacobian\n", havejac? "with" : "no");
 #endif /* DEBUG */
 
 /* CHECK 
@@ -351,7 +351,7 @@ if(!mxIsDouble(prhs[1]) || mxIsComplex(prhs[1]) || !(mxGetM(prhs[1])==1 && mxGet
 #ifdef DEBUG
   else{
     fflush(stderr);
-    fprintf(stderr, "LEVMAR: empty options vector, using defaults\n");
+    printf("LEVMAR: empty options vector, using defaults\n");
   }
 #endif /* DEBUG */
 
@@ -493,7 +493,7 @@ extraargs:
     mdata.rhs[i+1]=(mxArray *)prhs[nrhs-nextra+i]; /* discard 'const' modifier */
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: %d extra args\n", nextra);
+  printf("LEVMAR: %d extra args\n", nextra);
 #endif /* DEBUG */
 
   if(mdata.isrow_p0){ /* row vector */
@@ -529,7 +529,7 @@ extraargs:
         status=dlevmar_dif(func,          p, x, m, n, itmax, opts, info, NULL, covar, (void *)&mdata);
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_der()/dlevmar_dif()\n");
+  printf("LEVMAR: calling dlevmar_der()/dlevmar_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_BC: /* box constraints */
@@ -539,7 +539,7 @@ extraargs:
         status=dlevmar_bc_dif(func,          p, x, m, n, lb, ub, dscl, itmax, opts, info, NULL, covar, (void *)&mdata);
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_bc_der()/dlevmar_bc_dif()\n");
+  printf("LEVMAR: calling dlevmar_bc_der()/dlevmar_bc_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_LEC:  /* linear equation constraints */
@@ -554,7 +554,7 @@ extraargs:
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_lec_der()/dlevmar_lec_dif()\n");
+  printf("LEVMAR: calling dlevmar_lec_der()/dlevmar_lec_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_BLEC: /* box & linear equation constraints */
@@ -569,7 +569,7 @@ extraargs:
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_blec_der()/dlevmar_blec_dif()\n");
+  printf("LEVMAR: calling dlevmar_blec_der()/dlevmar_blec_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_BLEIC: /* box, linear equation & inequalities constraints */
@@ -584,7 +584,7 @@ extraargs:
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_bleic_der()/dlevmar_bleic_dif()\n");
+  printf("LEVMAR: calling dlevmar_bleic_der()/dlevmar_bleic_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_BLIC: /* box, linear inequalities constraints */
@@ -599,7 +599,7 @@ extraargs:
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_blic_der()/dlevmar_blic_dif()\n");
+  printf("LEVMAR: calling dlevmar_blic_der()/dlevmar_blic_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_LEIC: /* linear equation & inequalities constraints */
@@ -614,7 +614,7 @@ extraargs:
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_leic_der()/dlevmar_leic_dif()\n");
+  printf("LEVMAR: calling dlevmar_leic_der()/dlevmar_leic_dif()\n");
 #endif /* DEBUG */
     break;
     case MIN_CONSTRAINED_LIC: /* linear inequalities constraints */
@@ -629,7 +629,7 @@ extraargs:
 
 #ifdef DEBUG
   fflush(stderr);
-  fprintf(stderr, "LEVMAR: calling dlevmar_lic_der()/dlevmar_lic_dif()\n");
+  printf("LEVMAR: calling dlevmar_lic_der()/dlevmar_lic_dif()\n");
 #endif /* DEBUG */
     break;
     default:

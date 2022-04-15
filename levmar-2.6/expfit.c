@@ -23,12 +23,12 @@
 #include <stdlib.h>
 #include <math.h>
 
-#ifdef USE_CLAPACK
-  #include "f2c.h"
-  #include "clapack.h"
-#endif
+#include "f2c.h"
+#include "clapack.h"
+#include "blaswrap.h"
 
 #include "levmar.h"
+
 
 #ifndef LM_DBL_PREC
 #error Example program assumes that levmar has been compiled with double precision, see LM_DBL_PREC!

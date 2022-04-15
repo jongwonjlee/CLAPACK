@@ -119,12 +119,12 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
   mu=jacTe_inf=0.0; /* -Wall */
 
   if(n<m){
-    fprintf(stderr, LCAT(LEVMAR_DER, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
+    printf(LCAT(LEVMAR_DER, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
     return LM_ERROR;
   }
 
   if(!jacf){
-    fprintf(stderr, RCAT("No function specified for computing the Jacobian in ", LEVMAR_DER)
+    printf(RCAT("No function specified for computing the Jacobian in ", LEVMAR_DER)
         RCAT("().\nIf no such function is available, use ", LEVMAR_DIF) RCAT("() rather than ", LEVMAR_DER) "()\n");
     return LM_ERROR;
   }
@@ -148,7 +148,7 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
     worksz=LM_DER_WORKSZ(m, n); //2*n+4*m + n*m + m*m;
     work=(LM_REAL *)malloc(worksz*sizeof(LM_REAL)); /* allocate a big chunk in one step */
     if(!work){
-      fprintf(stderr, LCAT(LEVMAR_DER, "(): memory allocation request failed\n"));
+      printf(LCAT(LEVMAR_DER, "(): memory allocation request failed\n"));
       return LM_ERROR;
     }
     freework=1;
@@ -500,7 +500,7 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
   updjac=newjac=0; /* -Wall */
 
   if(n<m){
-    fprintf(stderr, LCAT(LEVMAR_DIF, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
+    printf(LCAT(LEVMAR_DIF, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
     return LM_ERROR;
   }
 
@@ -529,7 +529,7 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
     worksz=LM_DIF_WORKSZ(m, n); //4*n+4*m + n*m + m*m;
     work=(LM_REAL *)malloc(worksz*sizeof(LM_REAL)); /* allocate a big chunk in one step */
     if(!work){
-      fprintf(stderr, LCAT(LEVMAR_DIF, "(): memory allocation request failed\n"));
+      printf(LCAT(LEVMAR_DIF, "(): memory allocation request failed\n"));
       return LM_ERROR;
     }
     freework=1;

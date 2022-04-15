@@ -34,6 +34,9 @@
 #define LM_FINITE _finite // MSVC
 #elif defined(__ICC) || defined(__INTEL_COMPILER) || defined(__GNUC__)
 #define LM_FINITE finite // ICC, GCC
+int finite(double x){
+    return 1;
+}
 #else
 #define LM_FINITE finite // other than MSVC, ICC, GCC, let's hope this will work
 #endif
@@ -44,6 +47,9 @@
 #define LM_ISINF(x) isinf(x) // ICC, GCC
 #else
 #define LM_ISINF(x) isinf(x) // other than MSVC, ICC, GCC, let's hope this will work
+int isinf(double x){
+    return 1;
+}
 #endif
 
 #endif /* _COMPILER_H_ */

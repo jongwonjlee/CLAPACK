@@ -160,7 +160,7 @@ register LM_REAL sum;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_QR) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_QR) "() failed!\n");
         exit(1);
       }
     }
@@ -168,7 +168,7 @@ register LM_REAL sum;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_QR) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_QR) "() failed!\n");
         exit(1);
       }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -188,11 +188,11 @@ register LM_REAL sum;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GEQRF) " in ", AX_EQ_B_QR) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GEQRF) " in ", AX_EQ_B_QR) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT(RCAT("Unknown LAPACK error %d for ", GEQRF) " in ", AX_EQ_B_QR) "()\n", info);
+      printf(RCAT(RCAT("Unknown LAPACK error %d for ", GEQRF) " in ", AX_EQ_B_QR) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -208,11 +208,11 @@ register LM_REAL sum;
   ORGQR((int *)&m, (int *)&m, (int *)&m, a, (int *)&m, tau, work, (int *)&worksz, (int *)&info);
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", ORGQR) " in ", AX_EQ_B_QR) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", ORGQR) " in ", AX_EQ_B_QR) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("Unknown LAPACK error (%d) in ", AX_EQ_B_QR) "()\n", info);
+      printf(RCAT("Unknown LAPACK error (%d) in ", AX_EQ_B_QR) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -233,11 +233,11 @@ register LM_REAL sum;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_QR) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_QR) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_QR) "()\n", info);
+      printf(RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_QR) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -299,7 +299,7 @@ register LM_REAL sum;
 #endif /* LINSOLVERS_RETAIN_MEMORY */
    
     if(m<n){
-		  fprintf(stderr, RCAT("Normal equations require that the number of rows is greater than number of columns in ", AX_EQ_B_QRLS) "() [%d x %d]! -- try transposing\n", m, n);
+		  printf(RCAT("Normal equations require that the number of rows is greater than number of columns in ", AX_EQ_B_QRLS) "() [%d x %d]! -- try transposing\n", m, n);
 		  exit(1);
 	  }
       
@@ -324,7 +324,7 @@ register LM_REAL sum;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_QRLS) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_QRLS) "() failed!\n");
         exit(1);
       }
     }
@@ -332,7 +332,7 @@ register LM_REAL sum;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_QRLS) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_QRLS) "() failed!\n");
         exit(1);
       }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -359,11 +359,11 @@ register LM_REAL sum;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GEQRF) " in ", AX_EQ_B_QRLS) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GEQRF) " in ", AX_EQ_B_QRLS) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT(RCAT("Unknown LAPACK error %d for ", GEQRF) " in ", AX_EQ_B_QRLS) "()\n", info);
+      printf(RCAT(RCAT("Unknown LAPACK error %d for ", GEQRF) " in ", AX_EQ_B_QRLS) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -387,11 +387,11 @@ register LM_REAL sum;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_QRLS) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_QRLS) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_QRLS) "()\n", info);
+      printf(RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_QRLS) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -405,11 +405,11 @@ register LM_REAL sum;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_QRLS) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_QRLS) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_QRLS) "()\n", info);
+      printf(RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_QRLS) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -476,7 +476,7 @@ int info, nrhs=1;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_CHOL) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_CHOL) "() failed!\n");
         exit(1);
       }
     }
@@ -484,7 +484,7 @@ int info, nrhs=1;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_CHOL) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_CHOL) "() failed!\n");
         exit(1);
       }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -503,12 +503,12 @@ int info, nrhs=1;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", POTF2) "/", POTRF) " in ",
+      printf(RCAT(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", POTF2) "/", POTRF) " in ",
                       AX_EQ_B_CHOL) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT(RCAT(RCAT("LAPACK error: the leading minor of order %d is not positive definite,\nthe factorization could not be completed for ", POTF2) "/", POTRF) " in ", AX_EQ_B_CHOL) "()\n", info);
+      printf(RCAT(RCAT(RCAT("LAPACK error: the leading minor of order %d is not positive definite,\nthe factorization could not be completed for ", POTF2) "/", POTRF) " in ", AX_EQ_B_CHOL) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -520,7 +520,7 @@ int info, nrhs=1;
   /* solve using the computed Cholesky in one lapack call */
   POTRS("L", (int *)&m, (int *)&nrhs, a, (int *)&m, x, (int *)&m, &info);
   if(info<0){
-    fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", POTRS) " in ", AX_EQ_B_CHOL) "()\n", -info);
+    printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", POTRS) " in ", AX_EQ_B_CHOL) "()\n", -info);
     exit(1);
   }
 
@@ -530,11 +530,11 @@ int info, nrhs=1;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_CHOL) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) " in ", AX_EQ_B_CHOL) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_CHOL) "()\n", info);
+      printf(RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_CHOL) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -548,11 +548,11 @@ int info, nrhs=1;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) "in ", AX_EQ_B_CHOL) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRS) "in ", AX_EQ_B_CHOL) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_CHOL) "()\n", info);
+      printf(RCAT("LAPACK error: the %d-th diagonal element of A is zero (singular matrix) in ", AX_EQ_B_CHOL) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -663,7 +663,7 @@ int info, nrhs=1;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_PLASMA_CHOL) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_PLASMA_CHOL) "() failed!\n");
         exit(1);
       }
     }
@@ -671,7 +671,7 @@ int info, nrhs=1;
     buf_sz=tot_sz;
     buf=(LM_REAL *)malloc(buf_sz*sizeof(LM_REAL));
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_PLASMA_CHOL) "() failed!\n");
+      printf(RCAT("memory allocation in ", AX_EQ_B_PLASMA_CHOL) "() failed!\n");
       exit(1);
     }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -688,7 +688,7 @@ int info, nrhs=1;
   if(PLASMA_ncores<0){
     PLASMA_ncores=-PLASMA_ncores;
     PLASMA_Init(PLASMA_ncores);
-    fprintf(stderr, RCAT("\n", AX_EQ_B_PLASMA_CHOL) "(): PLASMA is running on %d cores.\n\n", PLASMA_ncores);
+    printf(RCAT("\n", AX_EQ_B_PLASMA_CHOL) "(): PLASMA is running on %d cores.\n\n", PLASMA_ncores);
   }
   
   /* Solve the linear system */
@@ -696,12 +696,12 @@ int info, nrhs=1;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", PLASMA_POSV) " in ",
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", PLASMA_POSV) " in ",
                       AX_EQ_B_PLASMA_CHOL) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT(RCAT("LAPACK error: the leading minor of order %d is not positive definite,\n"
+      printf(RCAT(RCAT("LAPACK error: the leading minor of order %d is not positive definite,\n"
                                 "the factorization could not be completed for ", PLASMA_POSV) " in ", AX_EQ_B_CHOL) "()\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
@@ -770,7 +770,7 @@ LM_REAL *a;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz);
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
         exit(1);
       }
     }
@@ -778,7 +778,7 @@ LM_REAL *a;
       buf_sz=tot_sz;
       buf=(LM_REAL *)malloc(buf_sz);
       if(!buf){
-        fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
+        printf(RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
         exit(1);
       }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -798,11 +798,11 @@ LM_REAL *a;
 	GETRF((int *)&m, (int *)&m, a, (int *)&m, ipiv, (int *)&info);  
 	if(info!=0){
 		if(info<0){
-      fprintf(stderr, RCAT(RCAT("argument %d of ", GETRF) " illegal in ", AX_EQ_B_LU) "()\n", -info);
+      printf(RCAT(RCAT("argument %d of ", GETRF) " illegal in ", AX_EQ_B_LU) "()\n", -info);
 			exit(1);
 		}
 		else{
-      fprintf(stderr, RCAT(RCAT("singular matrix A for ", GETRF) " in ", AX_EQ_B_LU) "()\n");
+      printf(RCAT(RCAT("singular matrix A for ", GETRF) " in ", AX_EQ_B_LU) "()\n");
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -815,11 +815,11 @@ LM_REAL *a;
   GETRS("N", (int *)&m, (int *)&nrhs, a, (int *)&m, ipiv, x, (int *)&m, (int *)&info);
 	if(info!=0){
 		if(info<0){
-			fprintf(stderr, RCAT(RCAT("argument %d of ", GETRS) " illegal in ", AX_EQ_B_LU) "()\n", -info);
+			printf(RCAT(RCAT("argument %d of ", GETRS) " illegal in ", AX_EQ_B_LU) "()\n", -info);
 			exit(1);
 		}
 		else{
-			fprintf(stderr, RCAT(RCAT("unknown error for ", GETRS) " in ", AX_EQ_B_LU) "()\n");
+			printf(RCAT(RCAT("unknown error for ", GETRS) " in ", AX_EQ_B_LU) "()\n");
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -902,7 +902,7 @@ int info, rank, worksz, *iwork, iworksz;
     buf_sz=tot_sz;
     buf=(LM_REAL *)malloc(buf_sz);
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_SVD) "() failed!\n");
+      printf(RCAT("memory allocation in ", AX_EQ_B_SVD) "() failed!\n");
       exit(1);
     }
   }
@@ -910,7 +910,7 @@ int info, rank, worksz, *iwork, iworksz;
     buf_sz=tot_sz;
     buf=(LM_REAL *)malloc(buf_sz);
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_SVD) "() failed!\n");
+      printf(RCAT("memory allocation in ", AX_EQ_B_SVD) "() failed!\n");
       exit(1);
     }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -934,11 +934,11 @@ int info, rank, worksz, *iwork, iworksz;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GESVD), "/" GESDD) " in ", AX_EQ_B_SVD) "()\n", -info);
+      printf(RCAT(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GESVD), "/" GESDD) " in ", AX_EQ_B_SVD) "()\n", -info);
       exit(1);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: dgesdd (dbdsdc)/dgesvd (dbdsqr) failed to converge in ", AX_EQ_B_SVD) "() [info=%d]\n", info);
+      printf(RCAT("LAPACK error: dgesdd (dbdsdc)/dgesvd (dbdsqr) failed to converge in ", AX_EQ_B_SVD) "() [info=%d]\n", info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -1040,7 +1040,7 @@ int info, *ipiv, nrhs=1;
     buf_sz=tot_sz;
     buf=(LM_REAL *)malloc(buf_sz);
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_BK) "() failed!\n");
+      printf(RCAT("memory allocation in ", AX_EQ_B_BK) "() failed!\n");
       exit(1);
     }
   }
@@ -1048,7 +1048,7 @@ int info, *ipiv, nrhs=1;
   buf_sz=tot_sz;
   buf=(LM_REAL *)malloc(buf_sz);
   if(!buf){
-    fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_BK) "() failed!\n");
+    printf(RCAT("memory allocation in ", AX_EQ_B_BK) "() failed!\n");
     exit(1);
   }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -1067,11 +1067,11 @@ int info, *ipiv, nrhs=1;
 	SYTRF("L", (int *)&m, a, (int *)&m, ipiv, work, (int *)&work_sz, (int *)&info);
 	if(info!=0){
 		if(info<0){
-      fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", SYTRF) " in ", AX_EQ_B_BK) "()\n", -info);
+      printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", SYTRF) " in ", AX_EQ_B_BK) "()\n", -info);
 			exit(1);
 		}
 		else{
-      fprintf(stderr, RCAT(RCAT("LAPACK error: singular block diagonal matrix D for", SYTRF) " in ", AX_EQ_B_BK)"() [D(%d, %d) is zero]\n", info, info);
+      printf(RCAT(RCAT("LAPACK error: singular block diagonal matrix D for", SYTRF) " in ", AX_EQ_B_BK)"() [D(%d, %d) is zero]\n", info, info);
 #ifndef LINSOLVERS_RETAIN_MEMORY
       free(buf);
 #endif
@@ -1083,7 +1083,7 @@ int info, *ipiv, nrhs=1;
   /* solve the system with the computed factorization */
   SYTRS("L", (int *)&m, (int *)&nrhs, a, (int *)&m, ipiv, x, (int *)&m, (int *)&info);
   if(info<0){
-    fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", SYTRS) " in ", AX_EQ_B_BK) "()\n", -info);
+    printf(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", SYTRS) " in ", AX_EQ_B_BK) "()\n", -info);
     exit(1);
 	}
 
@@ -1172,7 +1172,7 @@ LM_REAL *a, *work, max, sum, tmp;
     buf_sz=tot_sz;
     buf=(void *)malloc(tot_sz);
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
+      printf(RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
       exit(1);
     }
   }
@@ -1180,7 +1180,7 @@ LM_REAL *a, *work, max, sum, tmp;
     buf_sz=tot_sz;
     buf=(void *)malloc(tot_sz);
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
+      printf(RCAT("memory allocation in ", AX_EQ_B_LU) "() failed!\n");
       exit(1);
     }
 #endif /* LINSOLVERS_RETAIN_MEMORY */
@@ -1200,7 +1200,7 @@ LM_REAL *a, *work, max, sum, tmp;
 			if((tmp=FABS(a[i*m+j]))>max)
         max=tmp;
 		  if(max==0.0){
-        fprintf(stderr, RCAT("Singular matrix A in ", AX_EQ_B_LU) "()!\n");
+        printf(RCAT("Singular matrix A in ", AX_EQ_B_LU) "()!\n");
 #ifndef LINSOLVERS_RETAIN_MEMORY
         free(buf);
 #endif

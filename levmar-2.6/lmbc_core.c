@@ -438,31 +438,31 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
   mu=jacTe_inf=t=0.0;  tmin=tmin; /* -Wall */
 
   if(n<m){
-    fprintf(stderr, LCAT(LEVMAR_BC_DER, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
+    printf(LCAT(LEVMAR_BC_DER, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
     return LM_ERROR;
   }
 
   if(!jacf){
-    fprintf(stderr, RCAT("No function specified for computing the Jacobian in ", LEVMAR_BC_DER)
+    printf(RCAT("No function specified for computing the Jacobian in ", LEVMAR_BC_DER)
         RCAT("().\nIf no such function is available, use ", LEVMAR_BC_DIF) RCAT("() rather than ", LEVMAR_BC_DER) "()\n");
     return LM_ERROR;
   }
 
   if(!LEVMAR_BOX_CHECK(lb, ub, m)){
-    fprintf(stderr, LCAT(LEVMAR_BC_DER, "(): at least one lower bound exceeds the upper one\n"));
+    printf(LCAT(LEVMAR_BC_DER, "(): at least one lower bound exceeds the upper one\n"));
     return LM_ERROR;
   }
 
   if(dscl){ /* check that scaling consts are valid */
     for(i=m; i-->0; )
       if(dscl[i]<=0.0){
-        fprintf(stderr, LCAT(LEVMAR_BC_DER, "(): scaling constants should be positive (scale %d: %g <= 0)\n"), i, dscl[i]);
+        printf(LCAT(LEVMAR_BC_DER, "(): scaling constants should be positive (scale %d: %g <= 0)\n"), i, dscl[i]);
         return LM_ERROR;
       }
 
     sp_pDp=(LM_REAL *)malloc(m*sizeof(LM_REAL));
     if(!sp_pDp){
-      fprintf(stderr, LCAT(LEVMAR_BC_DER, "(): memory allocation request failed\n"));
+      printf(LCAT(LEVMAR_BC_DER, "(): memory allocation request failed\n"));
       return LM_ERROR;
     }
   }
@@ -486,7 +486,7 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
     worksz=LM_BC_DER_WORKSZ(m, n); //2*n+4*m + n*m + m*m;
     work=(LM_REAL *)malloc(worksz*sizeof(LM_REAL)); /* allocate a big chunk in one step */
     if(!work){
-      fprintf(stderr, LCAT(LEVMAR_BC_DER, "(): memory allocation request failed\n"));
+      printf(LCAT(LEVMAR_BC_DER, "(): memory allocation request failed\n"));
       return LM_ERROR;
     }
     freework=1;
@@ -516,7 +516,7 @@ int (*linsolver)(LM_REAL *A, LM_REAL *B, LM_REAL *x, int m)=NULL;
   BOXPROJECT(p, lb, ub, m); /* project to feasible set */
   for(i=0; i<m; ++i)
     if(pDp[i]!=p[i])
-      fprintf(stderr, RCAT("Warning: component %d of starting point not feasible in ", LEVMAR_BC_DER) "()! [%g projected to %g]\n",
+      printf(RCAT("Warning: component %d of starting point not feasible in ", LEVMAR_BC_DER) "()! [%g projected to %g]\n",
                       i, pDp[i], p[i]);
 
   /* compute e=x - f(p) and its L2 norm */
@@ -1100,14 +1100,14 @@ int LEVMAR_BC_DIF(
 struct LMBC_DIF_DATA data;
 int ret;
 
-  //fprintf(stderr, RCAT("\nWarning: current implementation of ", LEVMAR_BC_DIF) "() does not use a secant approach!\n\n");
+  //printf(RCAT("\nWarning: current implementation of ", LEVMAR_BC_DIF) "() does not use a secant approach!\n\n");
 
   data.ffdif=!opts || opts[4]>=0.0;
 
   data.func=func;
   data.hx=(LM_REAL *)malloc(2*n*sizeof(LM_REAL)); /* allocate a big chunk in one step */
   if(!data.hx){
-    fprintf(stderr, LCAT(LEVMAR_BC_DIF, "(): memory allocation request failed\n"));
+    printf(LCAT(LEVMAR_BC_DIF, "(): memory allocation request failed\n"));
     return LM_ERROR;
   }
   data.hxx=data.hx+n;

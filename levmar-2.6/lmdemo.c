@@ -28,11 +28,6 @@
 #include <math.h>
 #include <float.h>
 
-#ifdef USE_CLAPACK
-  #include "f2c.h"
-  #include "clapack.h"
-#endif
-
 #include "levmar.h"
 
 #ifndef LM_DBL_PREC
@@ -858,7 +853,7 @@ char *probname[]={
 #endif /* HAVE_LAPACK */
 				
   switch(problem){
-  default: fprintf(stderr, "unknown problem specified (#%d)! Note that some minimization problems require LAPACK.\n", problem);
+  default: printf("unknown problem specified (#%d)! Note that some minimization problems require LAPACK.\n", problem);
            exit(1);
     break;
 
@@ -910,7 +905,7 @@ char *probname[]={
    { double *work, *covar;
     work=malloc((LM_DIF_WORKSZ(m, n)+m*m)*sizeof(double));
     if(!work){
-    	fprintf(stderr, "memory allocation request failed in main()\n");
+    	printf("memory allocation request failed in main()\n");
       exit(1);
     }
     covar=work+LM_DIF_WORKSZ(m, n);

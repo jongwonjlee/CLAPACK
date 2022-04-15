@@ -28,13 +28,13 @@
  * You might also need to modify LM_BLAS_PREFIX below
  */
 /* f2c'd BLAS */
-//#define LM_BLAS_PREFIX f2c_
+#define LM_BLAS_PREFIX f2c_
 /* C BLAS */
 //#define LM_BLAS_PREFIX cblas_
 
 /* common suffix for BLAS subroutines */
-//#define LM_BLAS_SUFFIX  // define empty if a f2c_ or cblas_ prefix was defined for LM_BLAS_PREFIX above
-#define LM_BLAS_SUFFIX _ // use this in case of no BLAS prefix
+#define LM_BLAS_SUFFIX  // define empty if a f2c_ or cblas_ prefix was defined for LM_BLAS_PREFIX above
+//#define LM_BLAS_SUFFIX _ // use this in case of no BLAS prefix
 
 
 #define LCAT_(a, b)    #a b

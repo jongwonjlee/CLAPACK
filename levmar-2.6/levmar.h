@@ -53,7 +53,7 @@
 /* specifies whether double precision routines will be compiled or not */
 #define LM_DBL_PREC
 /* specifies whether single precision routines will be compiled or not */
-/* #undef LM_SNGL_PREC */
+#define LM_SNGL_PREC
 
 /****************** End of configuration options, no changes necessary beyond this point ******************/
 

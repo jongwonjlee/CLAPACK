@@ -227,19 +227,19 @@ int LEVMAR_BLEC_DER(
   register int i;
 
   if(!jacf){
-    fprintf(stderr, RCAT("No function specified for computing the Jacobian in ", LEVMAR_BLEC_DER)
+    printf(RCAT("No function specified for computing the Jacobian in ", LEVMAR_BLEC_DER)
       RCAT("().\nIf no such function is available, use ", LEVMAR_BLEC_DIF) RCAT("() rather than ", LEVMAR_BLEC_DER) "()\n");
     return LM_ERROR;
   }
 
   if(!lb && !ub){
-    fprintf(stderr, RCAT(LCAT(LEVMAR_BLEC_DER, "(): lower and upper bounds for box constraints cannot be both NULL, use "),
+    printf(RCAT(LCAT(LEVMAR_BLEC_DER, "(): lower and upper bounds for box constraints cannot be both NULL, use "),
           LEVMAR_LEC_DER) "() in this case!\n");
     return LM_ERROR;
   }
 
   if(!LEVMAR_BOX_CHECK(lb, ub, m)){
-    fprintf(stderr, LCAT(LEVMAR_BLEC_DER, "(): at least one lower bound exceeds the upper one\n"));
+    printf(LCAT(LEVMAR_BLEC_DER, "(): at least one lower bound exceeds the upper one\n"));
     return LM_ERROR;
   }
 
@@ -247,7 +247,7 @@ int LEVMAR_BLEC_DER(
   if(x){ /* nonzero x */
     data.x=(LM_REAL *)malloc((n+m)*sizeof(LM_REAL));
     if(!data.x){
-      fprintf(stderr, LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #1 failed\n"));
+      printf(LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #1 failed\n"));
       return LM_ERROR;
     }
 
@@ -261,7 +261,7 @@ int LEVMAR_BLEC_DER(
 
   data.w=(LM_REAL *)malloc(m*sizeof(LM_REAL) + m*sizeof(int)); /* should be arranged in that order for proper doubles alignment */
   if(!data.w){
-    fprintf(stderr, LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #2 failed\n"));
+    printf(LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #2 failed\n"));
     if(data.x) free(data.x);
     return LM_ERROR;
   }
@@ -342,13 +342,13 @@ int LEVMAR_BLEC_DIF(
   LM_REAL locinfo[LM_INFO_SZ];
 
   if(!lb && !ub){
-    fprintf(stderr, RCAT(LCAT(LEVMAR_BLEC_DIF, "(): lower and upper bounds for box constraints cannot be both NULL, use "),
+    printf(RCAT(LCAT(LEVMAR_BLEC_DIF, "(): lower and upper bounds for box constraints cannot be both NULL, use "),
           LEVMAR_LEC_DIF) "() in this case!\n");
     return LM_ERROR;
   }
 
   if(!LEVMAR_BOX_CHECK(lb, ub, m)){
-    fprintf(stderr, LCAT(LEVMAR_BLEC_DER, "(): at least one lower bound exceeds the upper one\n"));
+    printf(LCAT(LEVMAR_BLEC_DER, "(): at least one lower bound exceeds the upper one\n"));
     return LM_ERROR;
   }
 
@@ -356,7 +356,7 @@ int LEVMAR_BLEC_DIF(
   if(x){ /* nonzero x */
     data.x=(LM_REAL *)malloc((n+m)*sizeof(LM_REAL));
     if(!data.x){
-      fprintf(stderr, LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #1 failed\n"));
+      printf(LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #1 failed\n"));
       return LM_ERROR;
     }
 
@@ -370,7 +370,7 @@ int LEVMAR_BLEC_DIF(
 
   data.w=(LM_REAL *)malloc(m*sizeof(LM_REAL) + m*sizeof(int)); /* should be arranged in that order for proper doubles alignment */
   if(!data.w){
-    fprintf(stderr, LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #2 failed\n"));
+    printf(LCAT(LEVMAR_BLEC_DER, "(): memory allocation request #2 failed\n"));
     if(data.x) free(data.x);
     return LM_ERROR;
   }

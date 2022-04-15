@@ -267,7 +267,7 @@ int fvec_sz=n, fjac_sz=n*m, pp_sz=m, fvecp_sz=n;
 
   buf=(LM_REAL *)malloc((fvec_sz + fjac_sz + pp_sz + fvecp_sz)*sizeof(LM_REAL));
   if(!buf){
-    fprintf(stderr, LCAT(LEVMAR_CHKJAC, "(): memory allocation request failed\n"));
+    printf(LCAT(LEVMAR_CHKJAC, "(): memory allocation request failed\n"));
     exit(1);
   }
   fvec=buf;
@@ -355,7 +355,7 @@ int info, rank, worksz, *iwork, iworksz;
     buf_sz=tot_sz;
     buf=(LM_REAL *)malloc(buf_sz);
     if(!buf){
-      fprintf(stderr, RCAT("memory allocation in ", LEVMAR_PSEUDOINVERSE) "() failed!\n");
+      printf(RCAT("memory allocation in ", LEVMAR_PSEUDOINVERSE) "() failed!\n");
       return 0; /* error */
     }
 
@@ -378,10 +378,10 @@ int info, rank, worksz, *iwork, iworksz;
   /* error treatment */
   if(info!=0){
     if(info<0){
-      fprintf(stderr, RCAT(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GESVD), "/" GESDD) " in ", LEVMAR_PSEUDOINVERSE) "()\n", -info);
+      printf(RCAT(RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GESVD), "/" GESDD) " in ", LEVMAR_PSEUDOINVERSE) "()\n", -info);
     }
     else{
-      fprintf(stderr, RCAT("LAPACK error: dgesdd (dbdsdc)/dgesvd (dbdsqr) failed to converge in ", LEVMAR_PSEUDOINVERSE) "() [info=%d]\n", info);
+      printf(RCAT("LAPACK error: dgesdd (dbdsdc)/dgesvd (dbdsqr) failed to converge in ", LEVMAR_PSEUDOINVERSE) "() [info=%d]\n", info);
     }
     free(buf);
     return 0;
@@ -442,7 +442,7 @@ LM_REAL *a, *x, *work, max, sum, tmp;
   buf_sz=tot_sz;
   buf=(void *)malloc(tot_sz);
   if(!buf){
-    fprintf(stderr, RCAT("memory allocation in ", LEVMAR_LUINVERSE) "() failed!\n");
+    printf(RCAT("memory allocation in ", LEVMAR_LUINVERSE) "() failed!\n");
     return 0; /* error */
   }
 
@@ -461,7 +461,7 @@ LM_REAL *a, *x, *work, max, sum, tmp;
 			if((tmp=FABS(a[i*m+j]))>max)
         max=tmp;
 		  if(max==0.0){
-        fprintf(stderr, RCAT("Singular matrix A in ", LEVMAR_LUINVERSE) "()!\n");
+        printf(RCAT("Singular matrix A in ", LEVMAR_LUINVERSE) "()!\n");
         free(buf);
 
         return 0;
@@ -624,7 +624,7 @@ LM_REAL SSerr,  // sum of squared errors, i.e. residual sum of squares \sum_i (x
 
 
   if((hx=(LM_REAL *)malloc(n*sizeof(LM_REAL)))==NULL){
-    fprintf(stderr, RCAT("memory allocation request failed in ", LEVMAR_R2) "()\n");
+    printf(RCAT("memory allocation request failed in ", LEVMAR_R2) "()\n");
     exit(1);
   }
 
@@ -689,10 +689,10 @@ int info;
   /* error treatment */
   if(info!=0){
 		if(info<0){
-      fprintf(stderr, "LAPACK error: illegal value for argument %d of dpotf2 in %s\n", -info, LCAT(LEVMAR_CHOLESKY, "()"));
+      printf("LAPACK error: illegal value for argument %d of dpotf2 in %s\n", -info, LCAT(LEVMAR_CHOLESKY, "()"));
 		}
 		else{
-			fprintf(stderr, "LAPACK error: the leading minor of order %d is not positive definite,\n%s()\n", info,
+			printf("LAPACK error: the leading minor of order %d is not positive definite,\n%s()\n", info,
 						RCAT("and the Cholesky factorization could not be completed in ", LEVMAR_CHOLESKY));
 		}
     return LM_ERROR;
